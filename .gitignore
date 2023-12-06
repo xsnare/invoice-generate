@@ -7,13 +7,15 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-src/old
+# My directories and files
+src/ignored
+src/assets/db.json
+token.txt
 
 node_modules
 dist
 dist-ssr
 *.local
-token.txt
 
 # Editor directories and files
 .vscode/*

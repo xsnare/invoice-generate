@@ -1,8 +1,6 @@
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
-
 import { helpHttp } from '../helpers/helpHttp'
-import { configService } from '../services/configService'
 
 const initialState = {
   company: '',
@@ -26,7 +24,7 @@ export const useConfigStore = create(
         if (get().isActive) return
         set({ loadingConfig: true, errorConfig: null })
         try {
-          const response = await configService.updateConfig(fields)
+          const response = await helpHttp.put(endpoint, fields)
           set({ config: { ...response } })
         } catch (error) {
           set({ errorConfig: 'Error al actualizar la configuración.' })
