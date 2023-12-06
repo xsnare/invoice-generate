@@ -1,15 +1,17 @@
-import { useInvoice } from '../hooks/useInvoice'
-import InvoiceHeader from '../components/InvoiceHeader'
 import InvoiceDetail from '../components/InvoiceDetail'
+import InvoiceHeader from '../components/InvoiceHeader'
+import InvoiceTotals from '../components/InvoiceTotals'
+import { useInvoice } from '../hooks/useInvoice'
 
 export default function Invoice () {
-  const { addNewRow, setInvoice } = useInvoice()
+  const { addNewRow, saveInvoice } = useInvoice()
 
   return (
     <>
-      <form onSubmit={setInvoice}>
+      <form onSubmit={saveInvoice}>
         <InvoiceHeader/>
         <InvoiceDetail />
+        <InvoiceTotals/>
         <button type="button" onClick={addNewRow}>Add row</button>
         <button type="submit">Save</button>
       </form>

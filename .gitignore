@@ -7,7 +7,10 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-src/old
+# My directories and files
+ignored/
+db.json
+token.txt
 
 node_modules
 dist

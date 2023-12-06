@@ -1,72 +1,86 @@
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
-import { createInvoice } from '../services/invoiceService'
+import { helpHttp } from '../helpers/helpHttp'
+import { useConfigStore } from './config'
 
-const initialState = [
-  {
-    id: crypto.randomUUID(),
-    description: '',
-    rate: '',
-    quantity: ''
-  }
-]
+import { calculateAmounts } from '../helpers/calculateAmounts'
+
+const initialState = {
+  id: crypto.randomUUID(),
+  description: '',
+  rate: '',
+  quantity: ''
+}
+
 
 export const useInvoiceStore = create(
   devtools(
     (set, get) => ({
-      invoiceDetail: initialState,
+      invoiceDetail: [structuredClone(initialState)],
+      totals: {
+        subtotal: 0,
+        tax: 0,
+        total: 0
+      },
+      // Actions
       handleChange: (e, index) => {
         const { name, value } = e.target
         const updatedForm = [...get().invoiceDetail]
 
-        updatedForm[index][name] =
-          Number(value)
-            ? parseFloat(value)
-            : value
+        updatedForm[index][name] = Number(value) ? parseFloat(value) : value
 
         set({ invoiceDetail: updatedForm })
+        get().createTotals()
+      },
+      createTotals: () => {
+        const { invoiceDetail } = get()
+        const calculatedAmounts = calculateAmounts(invoiceDetail)
+        set({ totals: calculatedAmounts })
       },
       deleteRow: (_id) => {
-        const temp = [...get().invoiceDetail].filter(({ id }) => id !== _id)
-
-        set({ invoiceDetail: temp })
+        const newInvoice = get().invoiceDetail.filter(({ id }) => id !== _id)
+        set({ invoiceDetail: newInvoice })
+        get().createTotals()
       },
       addNewRow: () => {
-        const template = {
-          id: crypto.randomUUID(),
-          description: '',
-          rate: '',
-          quantity: ''
+        const newRow = {
+          ...initialState,
+          id: crypto.randomUUID()
         }
 
         set(state => ({
-          invoiceDetail: [
-            ...state.invoiceDetail,
-            template
-          ]
+          invoiceDetail: [...state.invoiceDetail, newRow]
         }))
       },
-      setInvoice: (e) => {
+      saveInvoice: async (e) => {
         e.preventDefault()
-        const details = [...get().invoiceDetail]
-        const { name, email } =
-          Object.fromEntries(new FormData(e.target))
+        const { invoiceDetail } = get()
+        const config = useConfigStore.getState().config
+        const { name, email } = Object.fromEntries(new FormData(e.target))
 
-        const invoice = {
-          name,
-          email,
-          details
+        const data = {
+          config,
+          invoice: {
+            details: invoiceDetail,
+            email,
+            name
+          }
         }
 
-        createInvoice(invoice).then(res => {
-          e.target.reset()
-          set({
-            invoiceDetail: [{
-              ...initialState,
-              id: crypto.randomUUID()
-            }]
-          })
-        })
+        const template = {
+          ...initialState,
+          id: crypto.randomUUID()
+        }
+
+        try {
+          const response = await helpHttp.post('invoice', data)
+          if (response) {
+            e.target.reset()
+            set({ invoiceDetail: [template] })
+          }
+        } catch (err) {
+          console.log(err)
+        }
       }
     })
   )
