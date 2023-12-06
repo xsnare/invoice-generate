@@ -24,7 +24,9 @@ module.exports = {
     'no-unused-vars': 'warn',
     'react/prop-types': 'off',
     'no-multiple-empty-lines': 'off',
-    'object-curly-spacing': ['error', 'always']
+    'object-curly-spacing': ['error', 'always'],
+    'prefer-promise-reject-errors': 'off',
+    'no-useless-return': 'off'
     // 'max-len': ['error', { code: 80 }]
   }
 }

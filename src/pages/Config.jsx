@@ -3,13 +3,13 @@ import ConfigCompany from '../components/ConfigCompany'
 import ConfigNumber from '../components/ConfigNumber'
 
 export default function Config () {
-  const { updateConfig, loading } = useConfig()
+  const { updateConfig, loading, isActive } = useConfig()
 
   return (
     <form onSubmit={updateConfig}>
       <ConfigCompany/>
       <ConfigNumber/>
-      <button type='submit'>{loading ? <div className="spinner"></div> : 'Save'}</button>
+      <button type='submit' disabled={isActive}>{loading ? <div className="spinner"></div> : 'Save'}</button>
     </form>
   )
 }
