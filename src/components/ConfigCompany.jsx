@@ -1,12 +1,11 @@
 import { useConfig } from '../hooks/useConfig'
 import { useConfigStore } from '../stores/config'
 
-export default function ConfigCompany () {
+export default function ConfigCompany ({ form }) {
   const { config } = useConfig()
   const { company, owner } = config
 
   const handleChange = useConfigStore(s => s.handleChange)
-
   return (
     <fieldset>
         <legend>Company Info</legend>
@@ -18,7 +17,7 @@ export default function ConfigCompany () {
             id="company"
             placeholder="Company"
             defaultValue={company}
-            onChange={handleChange}
+            onChange={handleChange(form)}
           />
         </div>
         <div>
@@ -29,7 +28,7 @@ export default function ConfigCompany () {
             id="owner"
             placeholder="Owner"
             defaultValue={owner}
-            onChange={handleChange}
+            onChange={handleChange(form)}
           />
         </div>
       </fieldset>
