@@ -1,7 +1,7 @@
-import { useConfig } from '../hooks/useConfig'
+import { useRef } from 'react'
 import ConfigCompany from '../components/ConfigCompany'
 import ConfigNumber from '../components/ConfigNumber'
-import { useRef } from 'react'
+import { useConfig } from '../hooks/useConfig'
 
 
 export default function Config () {

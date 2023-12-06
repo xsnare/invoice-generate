@@ -22,5 +22,12 @@ export const helpHttp = {
   put: (endpoint, data) => helpFetch(endpoint, {
     method: 'PUT',
     body: data
+  }),
+  post: (endpoint, data) => helpFetch(endpoint, {
+    method: 'POST',
+    body: data
+  }),
+  del: (endpoint) => helpFetch(endpoint, {
+    method: 'DELETE'
   })
 }
