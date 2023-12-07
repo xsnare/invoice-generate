@@ -19,7 +19,7 @@ const locale = {
   EUR: 'en-EU'
 }
 
-const endpoint = 'invoice'
+const endpoint = 'invoices'
 
 export const useInvoiceStore = create(
   devtools(
@@ -84,9 +84,9 @@ export const useInvoiceStore = create(
           invoice: {
             details: invoiceDetail,
             email,
-            name
-          },
-          totals
+            name,
+            totals
+          }
         }
 
         try {

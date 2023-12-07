@@ -7,7 +7,7 @@ const initialState = {
   owner: '',
   number: '',
   taxes: '',
-  currency: ''
+  currency: 'DOP'
 }
 
 const endpoint = 'config'
