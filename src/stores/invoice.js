@@ -4,12 +4,19 @@ import { helpHttp } from '../helpers/helpHttp'
 import { useConfigStore } from './config'
 
 import { calculateAmounts } from '../helpers/calculateAmounts'
+import { convertToCurrencyFormat } from '../helpers/convertToCurrencyFormat'
 
 const initialState = {
   id: crypto.randomUUID(),
   description: '',
   rate: '',
   quantity: ''
+}
+
+const locale = {
+  DOP: 'en-DO',
+  USD: 'en-US',
+  EUR: 'en-EU'
 }
 
 const endpoint = 'invoice'
@@ -20,9 +27,8 @@ export const useInvoiceStore = create(
       hasTaxes: true,
       invoiceDetail: [structuredClone(initialState)],
       totals: {
-        subtotal: 0,
-        tax: 0,
-        total: 0
+        unformattedAmounts: {},
+        formattedAmounts: {}
       },
       // Actions
       handleChange: (index) => (e) => {
@@ -39,11 +45,19 @@ export const useInvoiceStore = create(
         get().createTotals()
       },
       createTotals: () => {
-        const { invoiceDetail } = get()
-        const { taxes, hasTaxes } = useConfigStore.getState().config
-        const calculatedAmounts = calculateAmounts(invoiceDetail, taxes, hasTaxes)
+        const { invoiceDetail, hasTaxes } = get()
+        const { taxes, currency } = useConfigStore.getState().config
+        const unformattedAmounts =
+          calculateAmounts(invoiceDetail, taxes, hasTaxes)
+        const formattedAmounts =
+          convertToCurrencyFormat(unformattedAmounts, locale, currency)
 
-        set({ totals: calculatedAmounts })
+        set({
+          totals: {
+            unformattedAmounts,
+            formattedAmounts
+          }
+        })
       },
       deleteRow: (_id) => {
         const newInvoice = get().invoiceDetail.filter(({ id }) => id !== _id)
@@ -80,7 +94,12 @@ export const useInvoiceStore = create(
           if (response) {
             e.target.reset()
             set({ invoiceDetail: [template] })
-            set({ totals: { subtotal: 0, tax: 0, total: 0 } })
+            set({
+              totals: {
+                unformattedAmounts: {},
+                formattedAmounts: {}
+              }
+            })
           }
         } catch (err) {
           console.log(err)

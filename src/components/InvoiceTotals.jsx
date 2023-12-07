@@ -2,18 +2,18 @@ import { useInvoice } from '../hooks/useInvoice'
 
 export default function InvoiceTotals () {
   const { totals, hasTaxes, toggleTaxes } = useInvoice()
-  const { subtotal, tax, total } = totals
+  const { formattedAmounts: { subtotal, tax, total } } = totals
 
   return (
     <fieldset>
       <legend>Totals</legend>
       <div>
-        <p>Subtotal: ${subtotal}</p>
+        <p>Subtotal: ${subtotal || 0}</p>
         <div>
-          <p>Taxes: ${tax}</p>
+          {hasTaxes && <p>Taxes: ${tax || 0}</p>}
           <input type="checkbox" name="" id="" checked={hasTaxes} onChange={toggleTaxes}/>
         </div>
-        <p>Total: ${total}</p>
+        <p>Total: ${total || 0}</p>
       </div>
     </fieldset>
   )

@@ -7,8 +7,8 @@ const locale = {
 }
 
 export default function ConfigNumber ({ form }) {
-  const { config, handleChange, isLoading } = useConfig()
-  const { currency } = config
+  const { config, handleChange } = useConfig()
+  const { currency, number, taxes } = config
 
   return (
     <>
@@ -21,6 +21,8 @@ export default function ConfigNumber ({ form }) {
           name="number"
           id="number"
           placeholder="Number"
+          defaultValue={number}
+          onChange={handleChange(form)}
         />
       </div>
       <div>
@@ -30,14 +32,18 @@ export default function ConfigNumber ({ form }) {
           name="taxes"
           id="taxes"
           placeholder="Taxes"
+          defaultValue={taxes}
+          onChange={handleChange(form)}
         />
       </div>
+        {/* Fix this part */}
+        {currency && (
         <div>
           <label htmlFor="currency">Currency</label>
           <select
             name="currency"
             id="currency"
-            defaultValue={!isLoading ? currency : ''}
+            defaultValue={currency}
             onChange={handleChange(form)}>
             {Object.keys(locale).map(currency => (
               <option
@@ -47,7 +53,7 @@ export default function ConfigNumber ({ form }) {
               </option>
             ))}
           </select>
-        </div>
+        </div>)}
     </fieldset>
     </>
   )

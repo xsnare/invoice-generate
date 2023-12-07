@@ -1,4 +1,4 @@
-import { numberFormatter } from '../helpers/numberFormatter'
+import { numberFormatter } from '../helpers/convertToPlainCurrencyFormat'
 import { useInvoice } from '../hooks/useInvoice'
 
 export default function InvoiceDetail () {

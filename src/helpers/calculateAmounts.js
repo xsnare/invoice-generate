@@ -3,7 +3,7 @@ export const calculateAmounts = (data, taxes, hasTaxes) => {
     return acc + ((item.rate) * (item.quantity))
   }, 0)
 
-  const tax = !hasTaxes ? (temp * taxes) / 100 : 0
+  const tax = !hasTaxes ? 0 : temp * (taxes / 100)
   const total = temp + tax
 
   return {

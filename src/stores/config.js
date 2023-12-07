@@ -7,7 +7,7 @@ const initialState = {
   owner: '',
   number: '',
   taxes: '',
-  currecy: ''
+  currency: ''
 }
 
 const endpoint = 'config'
@@ -26,8 +26,9 @@ export const useConfigStore = create(
         if (get().isActive) return
         set({ loading: true, error: null })
         try {
-          const response = await helpHttp.put(endpoint, fields)
-          set({ config: { ...response } })
+          console.log(fields)
+          await helpHttp.put(endpoint, fields)
+          set({ config: fields })
         } catch (err) {
           set({ error: 'Error updating config.' })
         } finally {
