@@ -1,11 +1,9 @@
 import { useConfig } from '../hooks/useConfig'
-import { useConfigStore } from '../stores/config'
 
 export default function ConfigCompany ({ form }) {
-  const { config } = useConfig()
+  const { config, handleChange } = useConfig()
   const { company, owner } = config
 
-  const handleChange = useConfigStore(s => s.handleChange)
   return (
     <fieldset>
         <legend>Company Info</legend>

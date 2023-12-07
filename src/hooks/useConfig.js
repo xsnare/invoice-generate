@@ -8,6 +8,7 @@ export const useConfig = function () {
   const isActive = useConfigStore(s => s.isActive)
   const loading = useConfigStore(s => s.loading)
   const updateConfig = useConfigStore(s => s.updateConfig)
+  const handleChange = useConfigStore(s => s.handleChange)
 
   useEffect(() => {
     fetchConfig()
@@ -19,6 +20,7 @@ export const useConfig = function () {
     fetchConfig,
     isActive,
     loading,
-    updateConfig
+    updateConfig,
+    handleChange
   }
 }

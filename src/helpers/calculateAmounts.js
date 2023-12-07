@@ -1,14 +1,14 @@
-export const calculateAmounts = (data) => {
+export const calculateAmounts = (data, taxes, hasTaxes) => {
   const temp = data.reduce((acc, item) => {
     return acc + ((item.rate) * (item.quantity))
   }, 0)
 
-  const taxes = temp * 0.18
-  const total = temp + taxes
+  const tax = !hasTaxes ? (temp * taxes) / 100 : 0
+  const total = temp + tax
 
   return {
-    subTotal: temp,
-    taxes,
+    subtotal: temp,
+    tax,
     total
   }
 }

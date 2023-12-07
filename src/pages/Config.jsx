@@ -11,7 +11,7 @@ export default function Config () {
   return (
     <form ref={form} onSubmit={updateConfig}>
       <ConfigCompany form={form}/>
-      <ConfigNumber/>
+      <ConfigNumber form={form}/>
       <button type='submit' disabled={isActive}>{loading ? <div className="spinner"></div> : 'Save'}</button>
     </form>
   )

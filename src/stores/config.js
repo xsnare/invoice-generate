@@ -5,7 +5,9 @@ import { helpHttp } from '../helpers/helpHttp'
 const initialState = {
   company: '',
   owner: '',
-  number: ''
+  number: '',
+  taxes: '',
+  currecy: ''
 }
 
 const endpoint = 'config'
@@ -27,7 +29,7 @@ export const useConfigStore = create(
           const response = await helpHttp.put(endpoint, fields)
           set({ config: { ...response } })
         } catch (err) {
-          set({ error: 'Error al actualizar la configuración.' })
+          set({ error: 'Error updating config.' })
         } finally {
           set({ loading: false })
           set({ isActive: true })
@@ -44,9 +46,12 @@ export const useConfigStore = create(
           set({ loading: false })
         }
       },
-      handleChange: (form) => () => {
+      handleChange: (form) => (e) => {
         const fields = Object.fromEntries(new FormData(form.current))
-        set({ isActive: JSON.stringify(get().config) === JSON.stringify(fields) })
+        const config = get().config
+        // e.target.defaultValue = 'OK'
+
+        set({ isActive: JSON.stringify(config) === JSON.stringify(fields) })
       }
     })
   )

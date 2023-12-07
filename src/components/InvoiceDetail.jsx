@@ -15,7 +15,7 @@ export default function InvoiceDetail () {
             name="description"
             placeholder="Description"
             value={description}
-            onChange={(e) => handleChange(e, index)}
+            onChange={handleChange(index)}
           />
         </div>
         <div>
@@ -24,7 +24,7 @@ export default function InvoiceDetail () {
             name="quantity"
             placeholder="0"
             value={quantity}
-            onChange={(e) => handleChange(e, index)}
+            onChange={handleChange(index)}
           />
         </div>
         <div>
@@ -33,7 +33,7 @@ export default function InvoiceDetail () {
             name="rate"
             placeholder="0.00"
             value={rate}
-            onChange={(e) => handleChange(e, index)}
+            onChange={handleChange(index)}
           />
         </div>
         <p>amount: {numberFormatter(rate * quantity)}</p>
