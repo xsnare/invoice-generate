@@ -9,7 +9,6 @@ lerna-debug.log*
 
 # My directories and files
 ignored/
-db.json
 token.txt
 
 node_modules
