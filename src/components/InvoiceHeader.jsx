@@ -7,6 +7,7 @@ export default function InvoiceHeader () {
         type="text"
         name="name"
         id="name"
+        autoComplete="off"
         placeholder="Name"
       />
     </div>
@@ -16,6 +17,7 @@ export default function InvoiceHeader () {
         type="email"
         name="email"
         id="email"
+        autoComplete="off"
         placeholder="email@example.com"
       />
     </div>

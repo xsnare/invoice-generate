@@ -11,7 +11,7 @@ export default function InvoiceTotals () {
         <p>Subtotal: ${subtotal || 0}</p>
         <div>
           {hasTaxes && <p>Taxes: ${tax || 0}</p>}
-          <input type="checkbox" name="" id="" checked={hasTaxes} onChange={toggleTaxes}/>
+          <input type="checkbox" name="" id="taxes" checked={hasTaxes} onChange={toggleTaxes}/>
         </div>
         <p>Total: ${total || 0}</p>
       </div>

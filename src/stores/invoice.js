@@ -79,19 +79,31 @@ export const useInvoiceStore = create(
         const { name, email } = Object.fromEntries(new FormData(e.target))
         const template = { ...initialState, id: crypto.randomUUID() }
 
+        const descriptions = invoiceDetail.map(({ description }) => description)
+
+        const client = {
+          name,
+          email
+        }
+
         const data = {
           config,
           invoice: {
+            ...client,
             details: invoiceDetail,
-            email,
-            name,
             totals
           }
         }
 
         try {
-          const response = await helpHttp.post(endpoint, data)
-          if (response) {
+          const [data1, data2] = await Promise.all([
+            helpHttp.post(endpoint, data),
+            helpHttp.post('clients', client)
+          ])
+
+
+          if (data1 && data2) {
+            // localStorage.setItem('descriptions', JSON.stringify(descriptions))
             e.target.reset()
             set({ invoiceDetail: [template] })
             set({

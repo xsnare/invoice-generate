@@ -9,10 +9,13 @@ export default function Config () {
   const form = useRef()
 
   return (
-    <form ref={form} onSubmit={updateConfig}>
-      <ConfigCompany form={form}/>
-      <ConfigNumber form={form}/>
-      <button type='submit' disabled={isActive}>{loading ? <div className="spinner"></div> : 'Save'}</button>
-    </form>
+    <section>
+      <h3>Config</h3>
+      <form ref={form} onSubmit={updateConfig}>
+        <ConfigCompany form={form}/>
+        <ConfigNumber form={form}/>
+        <button type='submit' disabled={isActive}>{loading ? <div className="spinner"></div> : 'Save'}</button>
+      </form>
+    </section>
   )
 }

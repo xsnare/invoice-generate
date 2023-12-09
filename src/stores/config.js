@@ -19,21 +19,22 @@ export const useConfigStore = create(
       error: null,
       isActive: true,
       loading: false,
+
+      // Actions
       updateConfig: async (e) => {
         e.preventDefault()
+        const isActive = get().isActive
         const fields = Object.fromEntries(new FormData(e.target))
 
-        if (get().isActive) return
+        if (isActive) return
         set({ loading: true, error: null })
         try {
-          console.log(fields)
-          await helpHttp.put(endpoint, fields)
-          set({ config: fields })
+          const response = await helpHttp.put(endpoint, fields)
+          set({ config: response })
         } catch (err) {
           set({ error: 'Error updating config.' })
         } finally {
-          set({ loading: false })
-          set({ isActive: true })
+          set({ loading: false, isActive: true })
         }
       },
       fetchConfig: async () => {
@@ -50,8 +51,6 @@ export const useConfigStore = create(
       handleChange: (form) => (e) => {
         const fields = Object.fromEntries(new FormData(form.current))
         const config = get().config
-        // e.target.defaultValue = 'OK'
-
         set({ isActive: JSON.stringify(config) === JSON.stringify(fields) })
       }
     })

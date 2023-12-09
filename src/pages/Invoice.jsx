@@ -10,6 +10,7 @@ export default function Invoice () {
     <>
       <form onSubmit={saveInvoice}>
         <InvoiceHeader/>
+        <button>+</button>
         <InvoiceDetail />
         <InvoiceTotals/>
         <button type="button" onClick={addNewRow}>Add row</button>
