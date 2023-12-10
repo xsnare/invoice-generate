@@ -1,12 +1,14 @@
 import { create } from 'zustand'
-import { getAllInvoices } from '../services/invoiceService'
+import { helpHttp } from '../helpers/helpHttp'
 
 export const useInvoiceListStore = create((set) => ({
   invoices: [],
-  fetchInvoices: () => {
-    getAllInvoices().then((res) => {
-      set({ invoices: res })
-    })
-  },
-  setInvoiceList: (invoiceList) => set({ invoiceList })
+  fetchInvoices: async () => {
+    try {
+      const response = await helpHttp.get('invoices')
+      set({ invoices: response })
+    } catch (err) {
+      console.log(err)
+    }
+  }
 }))

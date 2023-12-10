@@ -1,9 +1,62 @@
 {
+  "config": {
+    "company": "Home",
+    "owner": "Abrahan Peralta",
+    "number": "INV00001",
+    "taxes": "18",
+    "currency": "DOP"
+  },
+  "clients": [
+    {
+      "name": "Darien",
+      "email": "dari23@examp.com",
+      "id": 1
+    },
+    {
+      "name": "Dana",
+      "email": "dana@gmail.com",
+      "id": 2
+    },
+    {
+      "name": "tres invoice",
+      "email": "tres@gmail.com",
+      "id": 3
+    }
+  ],
   "invoices": [
     {
-      "id": 1,
-      "title": "json-server",
-      "author": "typicode"
+      "config": {
+        "company": "Home",
+        "owner": "Abrahan Peralta",
+        "number": "INV00001",
+        "taxes": "18",
+        "currency": "DOP"
+      },
+      "invoice": {
+        "name": "Darien",
+        "email": "dari23@examp.com",
+        "details": [
+          {
+            "id": "06e5ad16-ae46-4024-850c-572e60903265",
+            "description": "Testing 1",
+            "rate": 120,
+            "quantity": 50
+          }
+        ],
+        "totals": {
+          "unformattedAmounts": {
+            "subtotal": 6000,
+            "tax": 1080,
+            "total": 7080
+          },
+          "formattedAmounts": {
+            "subtotal": "DOP 6,000.00",
+            "tax": "DOP 1,080.00",
+            "total": "DOP 7,080.00"
+          }
+        }
+      },
+      "id": 1
     },
     {
       "config": {
@@ -14,44 +67,64 @@
         "currency": "DOP"
       },
       "invoice": {
-        "name": "Darie Anubys",
-        "email": "da3po@examp.com",
+        "name": "Dana",
+        "email": "dana@gmail.com",
         "details": [
           {
-            "id": "a4290714-a5c6-409a-bc40-d0378800247a",
-            "description": "Testing 1",
-            "rate": 50,
-            "quantity": 50
+            "id": "bb58c174-c0fc-400d-8d64-498aeb84efc6",
+            "description": "Testing 2",
+            "rate": 30,
+            "quantity": 30
           }
         ],
         "totals": {
           "unformattedAmounts": {
-            "subtotal": 2500,
-            "tax": 450,
-            "total": 2950
+            "subtotal": 900,
+            "tax": 0,
+            "total": 900
           },
           "formattedAmounts": {
-            "subtotal": "DOP 2,500.00",
-            "tax": "DOP 450.00",
-            "total": "DOP 2,950.00"
+            "subtotal": "DOP 900.00",
+            "tax": "DOP 0.00",
+            "total": "DOP 900.00"
           }
         }
       },
       "id": 2
-    }
-  ],
-  "clients": [
+    },
     {
-      "name": "Darie Anubys",
-      "email": "da3po@examp.com",
-      "id": 1
+      "config": {
+        "company": "Home",
+        "owner": "Abrahan Peralta",
+        "number": "INV00001",
+        "taxes": "18",
+        "currency": "DOP"
+      },
+      "invoice": {
+        "name": "tres invoice",
+        "email": "tres@gmail.com",
+        "details": [
+          {
+            "id": "5b1a69c2-0a30-452d-b755-fbb74014755d",
+            "description": "Testing 3",
+            "rate": 50,
+            "quantity": 100
+          }
+        ],
+        "totals": {
+          "unformattedAmounts": {
+            "subtotal": 5000,
+            "tax": 900,
+            "total": 5900
+          },
+          "formattedAmounts": {
+            "subtotal": "DOP 5,000.00",
+            "tax": "DOP 900.00",
+            "total": "DOP 5,900.00"
+          }
+        }
+      },
+      "id": 3
     }
-  ],
-  "config": {
-    "company": "Home",
-    "owner": "Abrahan Peralta",
-    "number": "INV00001",
-    "taxes": "18",
-    "currency": "DOP"
-  }
+  ]
 }

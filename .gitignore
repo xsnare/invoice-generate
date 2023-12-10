@@ -10,6 +10,7 @@ lerna-debug.log*
 # My directories and files
 ignored/
 token.txt
+scss
 
 node_modules
 dist
