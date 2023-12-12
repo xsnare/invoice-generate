@@ -1,11 +1,14 @@
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 import { helpHttp } from '../helpers/helpHttp'
+import { validateForm } from '../helpers/validateForm'
 
 const initialState = {
   company: '',
   owner: '',
-  number: '',
+  email: '',
+  phone: '',
+  address: '',
   taxes: '',
   currency: 'DOP'
 }
@@ -17,16 +20,22 @@ export const useConfigStore = create(
     (set, get) => ({
       config: initialState,
       error: null,
+      errorMessage: null,
       isActive: true,
       loading: false,
 
       // Actions
       updateConfig: async (e) => {
         e.preventDefault()
+
         const isActive = get().isActive
         const fields = Object.fromEntries(new FormData(e.target))
+        const msg = validateForm(fields)
+        set({ errorMessage: msg })
 
         if (isActive) return
+        if (msg !== null) return
+
         set({ loading: true, error: null })
         try {
           const response = await helpHttp.put(endpoint, fields)
@@ -48,9 +57,13 @@ export const useConfigStore = create(
           set({ loading: false })
         }
       },
-      handleChange: (form) => (e) => {
-        const fields = Object.fromEntries(new FormData(form.current))
+      handleChange: (form) => (event) => {
         const config = get().config
+        const fields = Object.fromEntries(new FormData(form.current))
+
+        if (event.target.name === 'currency') { fields.currency = event.target.value }
+
+
         set({ isActive: JSON.stringify(config) === JSON.stringify(fields) })
       }
     })
