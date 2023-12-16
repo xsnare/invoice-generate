@@ -9,7 +9,7 @@ const initialState = {
   email: '',
   phone: '',
   address: '',
-  taxes: '',
+  taxes: '18',
   currency: 'DOP'
 }
 

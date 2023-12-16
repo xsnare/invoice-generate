@@ -1,0 +1,39 @@
+.totals {
+  margin: 32px 0;
+}
+
+.col{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 20px;
+}
+
+.row{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 40px;
+  
+  & p{
+    margin: 0;
+    font-size: 14px;
+  }
+}
+
+
+.row:nth-child(2) > p:first-of-type{
+  grid-column: 1/-1
+}
+
+.row:nth-child(3){
+  margin-top: 32px;
+}
+
+.title{
+  color: #616161;
+  width: 90px;
+}
+
+.subtitle{
+  color: #757575;
+}

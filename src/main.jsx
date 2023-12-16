@@ -12,13 +12,21 @@ import App from './App.jsx'
 // import './index.css'
 
 import { BrowserRouter } from 'react-router-dom'
-import { CssBaseline } from '@mui/material'
+import { CssBaseline, createTheme } from '@mui/material'
+import { ThemeProvider } from '@emotion/react'
+
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark'
+  }
+})
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   // <React.StrictMode>
   //   <App />
   // </React.StrictMode>
     <BrowserRouter>
+    <ThemeProvider theme={darkTheme}></ThemeProvider>
       <CssBaseline />
       <App />
     </BrowserRouter>

@@ -36,7 +36,6 @@ const Input = function ({ label, value, onChange, data, prop, err, ...rest }) {
         fullWidth
         {...rest}
         {...defaultProps}
-        id={lb}
         label={label}
         name={lb}
         onChange={onChange}
