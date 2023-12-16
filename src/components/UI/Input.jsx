@@ -12,7 +12,7 @@ const Input = function ({ label, value, onChange, data, prop, err, ...rest }) {
   const symbol = prop?.split(',')[1]
   let adorn = {}
 
-  if (prop?.split(',') === 'start') {
+  if (prop?.split(',')[0] === 'start') {
     adorn = {
       startAdornment:
       <InputAdornment position='start'>{symbol}</InputAdornment>

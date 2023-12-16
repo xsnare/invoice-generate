@@ -1,6 +1,6 @@
 
 import DeleteIcon from '@mui/icons-material/Delete'
-import { Button, Divider, Grid, IconButton, Stack, TextField, Typography } from '@mui/material'
+import { Button, Divider, Grid, IconButton, Stack, TextField, Tooltip, Typography, styled } from '@mui/material'
 import { Info } from '../components/UI/Info'
 import { Input } from '../components/UI/Input'
 import ClearIcon from '@mui/icons-material/Clear'
@@ -29,22 +29,25 @@ export default function CreateInvoice () {
       {details.map(({ id, description, rate, quantity }, index) => (
         <div key={id}>
           <Grid container spacing={1} mt={2}>
-            <Grid item xs={12} sm={4}>
-              <Input
-                label='Description'
-                value={description}
-                onChange={handleChange(index)}
-              />
-            </Grid>
-            <Grid item xs={12} sm={2}>
+            <Tooltip title={description} >
+              <Grid item xs={12} sm={4}>
+                <Input
+                  label='Description'
+                  value={description}
+                  onChange={handleChange(index)}
+                  />
+              </Grid>
+            </Tooltip>
+            <Grid item xs={12} sm={2.25}>
               <Input
                 label='Rate'
+                prop='start, $'
                 type='number'
                 value={rate}
                 onChange={handleChange(index)}
               />
             </Grid>
-            <Grid item xs={12} sm={2}>
+            <Grid item xs={12} sm={2.25}>
               <Input
                 label='Quantity'
                 type='number'
@@ -52,19 +55,21 @@ export default function CreateInvoice () {
                 onChange={handleChange(index)}
               />
             </Grid>
-            <Grid item xs={12} sm={3} >
-            <TextField
-              id="amount"
-              label="Amount"
-              size='small'
-              fullWidth
-              value={numberFormatter(rate * quantity)}
-              onChange={handleChange(index)}
-              InputProps={{
-                readOnly: true
-              }}
-            />
-            </Grid>
+            <Tooltip title={numberFormatter(rate * quantity)} >
+              <Grid item xs={12} sm={2.5} >
+              <TextField
+                id="amount"
+                label="Amount"
+                size='small'
+                fullWidth
+                value={numberFormatter(rate * quantity)}
+                onChange={handleChange(index)}
+                InputProps={{
+                  readOnly: true
+                }}
+              />
+              </Grid>
+            </Tooltip>
 
             <Grid item xs={12} sm={1} sx={styleSections} >
               <IconButton color='error' sx={styleDelete} onClick={() => deleteRow(id)}>
@@ -76,7 +81,6 @@ export default function CreateInvoice () {
             </Grid>
           </Grid>
           <Divider sx={{ mt: 2 }}/>
-
         </div>
       ))}
       <Grid container mt={2}>
@@ -93,7 +97,6 @@ export default function CreateInvoice () {
           <Button variant='contained' fullWidth>Save</Button>
         </Grid>
       </Grid>
-
     </Stack>
     </>
   )
